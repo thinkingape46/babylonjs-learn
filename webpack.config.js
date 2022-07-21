@@ -11,6 +11,7 @@ class RunAftercompile {
   apply(compiler) {
     compiler.hooks.done.tap("Copy assets", function () {
       fse.copySync("./src/scenes", "./app/scenes");
+      fse.copySync("./src/images", "./app/images");
     });
   }
 }
@@ -64,7 +65,7 @@ if (currentTask === "dev") {
     port: 4002,
     static: { directory: path.resolve(__dirname, "app") },
     hot: true,
-    liveReload: false,
+    liveReload: true,
     historyApiFallback: true,
     headers: {
       "Access-Control-Allow-Origin": "*",
