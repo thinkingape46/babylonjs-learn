@@ -1,0 +1,30 @@
+{
+    "env": {
+      "browser": true,
+      "es2021": true
+    },
+    "extends": ["plugin:react/recommended", "standard", "eslint:recommended"],
+    "parserOptions": {
+      "ecmaFeatures": {
+        "jsx": true
+      },
+      "ecmaVersion": 12,
+      "sourceType": "module"
+    },
+    "plugins": ["react"],
+    "rules": {
+      "semi": ["error", "always"],
+      "quotes": ["error", "double"],
+      "comma-dangle": [
+        "off",
+        {
+          "arrays": "never",
+          "objects": "never",
+          "imports": "never",
+          "exports": "never",
+          "functions": "never"
+        }
+      ],
+      "indent": "off"
+    }
+  }
