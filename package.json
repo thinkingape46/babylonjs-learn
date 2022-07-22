@@ -13,7 +13,8 @@
   "dependencies": {
     "@babylonjs/core": "^5.15.1",
     "@babylonjs/inspector": "^5.15.1",
-    "@babylonjs/loaders": "^5.15.1"
+    "@babylonjs/loaders": "^5.15.1",
+    "earcut": "^2.2.4"
   },
   "devDependencies": {
     "@babel/core": "^7.15.5",
