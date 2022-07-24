@@ -91,6 +91,14 @@ const addMeshes = async () => {
   house.scalingDeterminant = 3;
 
   // building a car
+
+  const faceUVCar = [];
+  faceUVCar[0] = new Vector4(0, 0.5, 0.378, 1);
+  faceUVCar[1] = new Vector4(0, 0, 1, 0.49);
+  faceUVCar[2] = new Vector4(0.378, 1, 0, 0.5);
+  const carTexture = new StandardMaterial("carTexture");
+  carTexture.diffuseTexture = new Texture("./images/car.png");
+
   const carOutline = [new Vector3(0, 0, 0), new Vector3(2, 0, 0)];
 
   const carMirrorOutlinePoints = 60;
@@ -111,19 +119,28 @@ const addMeshes = async () => {
     {
       shape: carOutline,
       depth: 1,
+      faceUV: faceUVCar,
+      wrap: true,
     },
     scene,
     earcut
   );
 
+  car.material = carTexture;
   car.scalingDeterminant = 1;
   house.computeWorldMatrix(true);
   car.computeWorldMatrix(true);
 
   // building wheels
+  const wheelFaceUV = [];
+  wheelFaceUV[0] = new Vector4(0, 0, 1, 1);
+  wheelFaceUV[1] = new Vector4(0.45, 0, 0.5, 0.1);
+  wheelFaceUV[2] = new Vector4(0, 0, 1, 1);
   const wheelLF = new CreateCylinder("wheelLF", {
     diameter: 0.5,
     height: 0.1,
+    faceUV: wheelFaceUV,
+    wrap: true,
   });
   wheelLF.parent = car;
   wheelLF.position.x = 2.5;
@@ -139,14 +156,31 @@ const addMeshes = async () => {
   wheelRB.position.x = 1;
   wheelRB.position.y = 0;
 
+  // wheel textures
+  const wheelTexture = new StandardMaterial("wheelTexture");
+  wheelTexture.diffuseTexture = new Texture("./images/wheel.png");
+  wheelLF.material = wheelTexture;
+  wheelRF.material = wheelTexture;
+  wheelLB.material = wheelTexture;
+  wheelRB.material = wheelTexture;
+
   car.rotation.x = -Math.PI / 2;
-
-  console.log(135, wheelRF);
-
   // setting axes
   axes.xAxis.parent = car;
   axes.yAxis.parent = car;
   axes.zAxis.parent = car;
+
+  //   const groundExtenderSizeWorld =
+  //     ground.getBoundingInfo().boundingBox.extendSizeWorld;
+  //   const groundCenter = ground.getBoundingInfo().boundingBox.centerWorld;
+  //   console.log(151, ground.getBoundingInfo(), groundCenter);
+
+  //   car.scalingDeterminant = 10;
+  //   car.position.x = groundExtenderSizeWorld.x + groundCenter.x;
+  //   car.position.y = groundExtenderSizeWorld.y + groundCenter.y;
+  //   car.position.z = groundExtenderSizeWorld.z + groundCenter.z;
+
+  car.computeWorldMatrix(true);
 
   engine.runRenderLoop(() => scene.render());
 };
